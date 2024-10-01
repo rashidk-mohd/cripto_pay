@@ -1,4 +1,4 @@
-package com.example.blizerpay
+package com.blizerpay
 
 import io.flutter.embedding.android.FlutterActivity
 
