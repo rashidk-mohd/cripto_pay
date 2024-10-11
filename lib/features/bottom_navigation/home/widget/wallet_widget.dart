@@ -201,7 +201,12 @@ class _WalletPaymetTextFieldsState extends State<WalletPaymetTextFields> {
                   return null;
                 }
               },
-              prefix: Image.asset(PathConstents.blizerrounded,width: 20,height: 20,),
+              prefix: SizedBox(
+                width: 10,height: 10,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset("assets/logo/bliz.png",),
+                )),
             ),
             const SizedBox(
               height: 10,

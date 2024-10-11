@@ -65,7 +65,7 @@ class PathConstents{
    static const String telegram= "assets/icons/telegramicon.png";
    static const String x= "assets/icons/X.png";
    static const String blizer= "assets/icons/blizer.png";
-   static const String blizerrounded= "assets/icons/blizer_rounded.png";
+   static const String blizerrounded= "assets/logo/bliz_icon.svg";
    static const String blizerroundedHistory= "assets/icon/blizerforhistory.png";
 
 }

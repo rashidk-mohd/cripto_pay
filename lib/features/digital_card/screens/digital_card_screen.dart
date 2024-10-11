@@ -254,7 +254,10 @@ class _DigitalCardScreenConsumerState extends ConsumerState<DigitalCardScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right:4.0),
-                        child: Image.asset(PathConstents.blizerrounded),
+                        child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset("assets/logo/app_logo.png")),
                       ),
                       const DmSansFontText(
                         text: "20.00 ",
@@ -292,7 +295,11 @@ class _DigitalCardScreenConsumerState extends ConsumerState<DigitalCardScreen> {
                   padding: EdgeInsets.only(right: 20),
                   child: Row(
                     children: [
-                      Image.asset(PathConstents.blizerrounded),
+                      SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset("assets/logo/app_logo.png")),
+                      
                      const Padding(
                         padding: const EdgeInsets.only(right:6.0),
                         child: DmSansFontText(
@@ -330,7 +337,11 @@ class _DigitalCardScreenConsumerState extends ConsumerState<DigitalCardScreen> {
                             text: "Total:",
                             fontSize: 18,
                             fontWeight: FontWeight.w500),
-                        Image.asset(PathConstents.blizerrounded),
+                        SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset("assets/logo/app_logo.png")),
+                      
                         SizedBox(width: 5,),
                         DmSansFontText(
                             text: "${total.toStringAsFixed(2)}",
@@ -431,8 +442,12 @@ class DetailsContainer extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Row(
                 children: [
-                  Image.asset(PathConstents.blizerrounded),
-                  SizedBox(width: 5,),
+                 SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset("assets/logo/app_logo.png")),
+                      
+                const  SizedBox(width: 5,),
                   DmSansFontText(
                     text: subTitle,
                     fontSize: 12,

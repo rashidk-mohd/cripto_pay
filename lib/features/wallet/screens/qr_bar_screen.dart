@@ -17,14 +17,17 @@ class QRBarScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // QR Code
-              QrImageView(
-                data: qrnumber!, // Your 16-digit number
-                version: QrVersions.auto,
-                size: 200.0,
-              ),
-              const SizedBox(height: 80), // Spacing between QR code and buttons
-              // Row of Buttons
+             QrImageView(
+        data: qrnumber!, 
+        size: 300, 
+        backgroundColor: Colors.white, 
+        padding:const EdgeInsets.all(20), 
+        version: QrVersions.auto, 
+        errorCorrectionLevel: QrErrorCorrectLevel.H, 
+        gapless: false, 
+        
+      ),
+              const SizedBox(height: 80),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

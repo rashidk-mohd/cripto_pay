@@ -9,7 +9,7 @@ class PaymentReciptScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff1D6FC3),
+      backgroundColor:const Color(0xff1D6FC3),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

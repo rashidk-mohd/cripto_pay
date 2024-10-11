@@ -62,12 +62,10 @@ class _HistoryScreenConsumerState extends ConsumerState<HistoryScreen> {
                     ? const Center(
                         child: Text("No Transaction yet"),
                       )
-                    :walletHistoryAsyncValue2.isLoading?Center(child: CircularProgressIndicator()): ListView.builder(
-                        itemCount: walletHistoryAsyncValue2.history.length - 1,
+                    :walletHistoryAsyncValue2.isLoading?const Center(child: CircularProgressIndicator()): ListView.builder(
+                        itemCount: walletHistoryAsyncValue2.history.length ,
                         itemBuilder: (context, index) {
-                          log("transaction dat ${convertDataFormate(
-                            "${walletHistoryAsyncValue2.history[index]["transactionDate"]}",
-                          )}");
+                         
                           int amount = walletHistoryAsyncValue2.history[index]["amount"];
                           return HistoryWidget(
                             history: walletHistoryAsyncValue2.history,
@@ -79,7 +77,7 @@ class _HistoryScreenConsumerState extends ConsumerState<HistoryScreen> {
                                 .toUpperCase(),
                             paymentType:
                                 walletHistoryAsyncValue2.history[index]["typeOfTransation"] == "w2w"
-                                    ? "Wallet to Wallet"
+                                    ?  walletHistoryAsyncValue2.history[index]["typeOfTransation"] == "web3tow"?"Web 3 to wallet": "Wallet to Wallet"
                                     : history[index]["typeOfTransation"],
                             rate: amount.toDouble(),
                             date:index==0?convertDataFormate(

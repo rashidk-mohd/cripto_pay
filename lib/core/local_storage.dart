@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorage {
@@ -47,6 +49,8 @@ class LocalStorage {
   }
 
   Future<void> setWalletNumber(String? walletNumber) async {
+        log("=======================================================================> $walletNumber");
+
     _sharedPreferences = await SharedPreferences.getInstance();
     await _sharedPreferences.setString('WALLETNUMBER', walletNumber??"");
   }
@@ -54,6 +58,7 @@ class LocalStorage {
   Future<String> getWalletNumber() async {
     _sharedPreferences = await SharedPreferences.getInstance();
     String? walletnumber = _sharedPreferences.getString('WALLETNUMBER');
+     log("=======================================================================> $walletnumber");
     return walletnumber ?? "";
   }
   Future<void>setUserName(String? userName)async{

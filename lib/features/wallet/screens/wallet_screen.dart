@@ -135,8 +135,11 @@ class _WalletScreenConsumerState extends ConsumerState<WalletScreen> {
                         ),
                         Row(
                           children: [
-                            Image.asset(PathConstents.blizerrounded),
-                            SizedBox(width: 5,),
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Image.asset("assets/logo/bliz.png")),
+                          const  SizedBox(width: 5,),
                             DmSansFontText(
                               text:
                                   "${home.personalDetails["data"]["user"]["WalletAmount"]}",

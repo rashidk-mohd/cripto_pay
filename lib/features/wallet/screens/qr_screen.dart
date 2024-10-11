@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:blizerpay/constents/path_constents.dart';
@@ -16,6 +17,7 @@ class QRScannerScreen extends StatefulWidget {
   String? amount;
 
   @override
+  // ignore: library_private_types_in_public_api
   _QRScannerScreenState createState() => _QRScannerScreenState();
 }
 
@@ -23,12 +25,58 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   TextEditingController walletIdController = TextEditingController();
   TextEditingController walletAmountController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  File? _imageFile;
-  final ImagePicker _picker = ImagePicker();
-  MobileScannerController? _controller;
+  MobileScannerController cameraController = MobileScannerController();
+
+  BarcodeCapture? _barcodeCapture;
+
+  Future<void> _analyzeImageFromFile() async {
+    try {
+      final XFile? file = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 100,
+        maxWidth: 1080,
+        maxHeight: 1080,
+      );
+
+      final fileData = file?.path;
+      log("fileDatafileData $fileData");
+      final BarcodeCapture? barcodeCapture = 
+          await cameraController.analyzeImage(fileData!);
+
+      if (mounted) {
+        setState(() {
+          _barcodeCapture = barcodeCapture;
+        });
+      }
+
+      log("QR code detected: ${_barcodeCapture!.barcodes}");
+    } catch (e) {
+      log("Error while analyzing the QR code image: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_barcodeCapture != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        for (final barcode in _barcodeCapture!.barcodes) {
+          {
+            if (barcode.displayValue!.isNotEmpty) {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) => WalletPaymentWidget(
+                        amount: widget.amount,
+                        formKey: formKey,
+                        walletAmountController: walletAmountController,
+                        walletIdController:
+                            TextEditingController(text: barcode.displayValue),
+                      ));
+            }
+          }
+        }
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -72,13 +120,14 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
       ),
       body: Stack(
         children: [
+          // _imageFile == null ? const SizedBox() : Image.file(_imageFile!),
+
           MobileScanner(
               controller: MobileScannerController(
                   detectionSpeed: DetectionSpeed.normal),
-              onDetect: (capture) {
+              onDetect: (capture) async {
                 final List<Barcode> barcodes = capture.barcodes;
                 for (final barcode in barcodes) {
-                  print(barcode.rawValue ?? "No Data found in QR");
                   {
                     if (barcode.displayValue!.isNotEmpty) {
                       Navigator.pushReplacement(
@@ -118,20 +167,10 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    final XFile? pickedFile =
-                        await _picker.pickImage(source: ImageSource.gallery);
-                    if (pickedFile != null) {
-                      setState(() {
-                        _imageFile = File(pickedFile.path);
-                      });
-                      // Handle uploaded image QR processing if needed
-                    }
+                    _analyzeImageFromFile();
                   },
                   child: const Text('Upload from gallery'),
                 ),
-                if (_imageFile != null) ...[
-                  Image.file(_imageFile!),
-                ],
               ],
             ),
           ),
@@ -140,9 +179,25 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
+  // Future<void> scanFromGallery() async {
+  //   final ImagePicker picker = ImagePicker();
+  //   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+  //   if (image != null) {
+  //     // Convert XFile to File
+  //     setState(() {
+  //       _imageFile = File(image.path);
+  //     });
+
+  //     // Now you can use the File object (imageFile) for further processing
+  //     print('File path: ${_imageFile!.path}');
+  //   } else {
+  //     print('No image selected');
+  //   }
+  // }
+  // @override
+  // void dispose() {
+  //   ca?.dispose();
+  //   super.dispose();
+  // }
 }

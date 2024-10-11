@@ -107,7 +107,7 @@ Widget _buildUserProfile(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        imageUrl != null
+        imageUrl!.isNotEmpty
             ? CircleAvatar(
                 radius: 40.0, backgroundImage: NetworkImage(imageUrl!))
             : CircleAvatar(

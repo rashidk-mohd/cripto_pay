@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:blizerpay/features/wallet/screens/qr_screen.dart';
@@ -17,19 +18,21 @@ class QRcodeBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // QR Code
-          // PrettyQrView.data(data: "1111 1111 1111 1111"),
-          QrImageView(
-            data: qrnumber!,
-            version: QrVersions.auto,
-            size: 250.0,
-            errorCorrectionLevel: QrErrorCorrectLevel.H,
-            foregroundColor: Colors.black, // Set QR code color
-            backgroundColor: Colors.white, // Set background color
+          Container(
+            padding:const EdgeInsets.all(16.0),
+          color: Colors.white,
+            child: QrImageView(
+                 data: qrnumber!,
+            version: QrVersions.auto,    
+            size: 200.0,                   
+            gapless: false,                
+            backgroundColor: Colors.white,
+            // foregroundColor: Colors.black, 
+            errorCorrectionLevel: QrErrorCorrectLevel.H, //
+            ),
           ),
-          const SizedBox(height: 20), // Spacing between QR code and buttons
-          // Row of Buttons
-          Row(
+          const SizedBox(height: 20),
+          Row( 
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               QRRightButton(
@@ -37,7 +40,7 @@ class QRcodeBottomSheet extends StatelessWidget {
                 color: Colors.white,
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>  QRScannerScreen(),
+                    builder: (context) => QRScannerScreen(),
                   ));
                 },
                 gradientColors: const [
@@ -56,7 +59,6 @@ class QRcodeBottomSheet extends StatelessWidget {
                   Colors.white,
                 ],
               ),
-              //  const  QRRightButton(),
             ],
           ),
         ],
@@ -64,47 +66,53 @@ class QRcodeBottomSheet extends StatelessWidget {
     );
   }
 
-  Future<void> _shareQRImage(String? qr) async {
-    // Ensure the QR data is valid
-    if (qr == null || qr.isEmpty) {
-      print('QR data is empty or null');
+  
+}
+Future<void> _shareQRImage(String? qr) async {
+  log("Generating and sharing QR code...");
+  
+  // Ensure the QR data is valid
+  if (qr == null || qr.isEmpty) {
+    log('QR data is empty or null');
+    return;
+  }
+
+  try {
+    // Generate QR code with improved settings
+    final image = await QrPainter(
+      data: qr,
+      version: QrVersions.auto,
+      gapless: false,
+      color: Colors.white,                    // Set foreground color to black
+      emptyColor: Colors.black,               // Set background color to white
+      errorCorrectionLevel: QrErrorCorrectLevel.H, 
+
+    ).toImageData(800.0); // Increase the size for better clarity
+
+    if (image == null) {
+      log('Failed to generate QR image');
       return;
     }
 
-    try {
-      // Generate QR code with higher error correction level
-      final image = await QrPainter(
-        data: qr,
-        version: QrVersions.auto,
-        gapless: false,
-        color: Colors.black,
-        emptyColor: Colors.white,
-        errorCorrectionLevel: QrErrorCorrectLevel.H, // High error correction
-      ).toImageData(400.0); // Generate QR code image data with increased size
+    // Define file name and location
+    String filename = 'qr_code.png';
+    final tempDir = await getTemporaryDirectory(); // Get temporary directory
+    final file = await File('${tempDir.path}/$filename').create(); // Create file
 
-      if (image == null) {
-        print('Failed to generate QR image');
-        return;
-      }
+    // Convert image to bytes and write to file
+    final bytes = image.buffer.asUint8List();
+    await file.writeAsBytes(bytes); // Write image bytes to file
 
-      // Define file name and location
-      String filename = 'qr_code.png';
-      final tempDir = await getTemporaryDirectory(); // Get temporary directory
-      final file =
-          await File('${tempDir.path}/$filename').create(); // Create file
-      var bytes = image.buffer.asUint8List(); // Get image bytes
-      await file.writeAsBytes(bytes); // Write image bytes to file
+    log('QR image generated and saved at: ${file.path}');
 
-      // Share the generated QR code
-      await Share.shareXFiles(
-        [XFile(file.path)],
-        text:
-            'Your wallet number is $qr', // Ensure this matches your QR code data
-        subject: 'QR Code',
-      );
-    } catch (e) {
-      print('Error generating or sharing QR code: $e');
-    }
+    // Share the generated QR code
+    await Share.shareXFiles(
+      [XFile(file.path)],
+      text: 'Your wallet number is $qr', // Text message for the share
+      subject: 'QR Code',
+    );
+  } catch (e) {
+    log('Error generating or sharing QR code: $e');
   }
 }
 
