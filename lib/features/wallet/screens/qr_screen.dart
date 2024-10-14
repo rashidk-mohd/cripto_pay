@@ -62,6 +62,11 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
         for (final barcode in _barcodeCapture!.barcodes) {
           {
             if (barcode.displayValue!.isNotEmpty) {
+                Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ));
               showModalBottomSheet(
                   context: context,
                   builder: (context) => WalletPaymentWidget(

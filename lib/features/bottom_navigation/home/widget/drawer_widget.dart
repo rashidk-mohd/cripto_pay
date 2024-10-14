@@ -2,6 +2,7 @@
 import 'package:blizerpay/common/widgets/text_widgets.dart';
 import 'package:blizerpay/constents/path_constents.dart';
 import 'package:blizerpay/features/auth/controller/auth_controller.dart';
+import 'package:blizerpay/features/comming_soon.dart';
 import 'package:blizerpay/features/history/screens/history_screen.dart';
 import 'package:blizerpay/features/profile_screen.dart/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,12 @@ class HomeDrawerWidget extends ConsumerWidget {
               },
             ),
 
-            const DrawerContentWidget(
+             DrawerContentWidget(
+ onTap: () {
+                 Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CommingSoonScreen(),
+                  ));
+              },
               path: PathConstents.helpIcon,
               title: "Help",
             ),
@@ -79,10 +85,13 @@ class HomeDrawerWidget extends ConsumerWidget {
             //   },
             // ),
             DrawerContentWidget(
+
               path: PathConstents.settingsIcon,
               title: "Notification Settings",
               onTap: () {
-                
+                 Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CommingSoonScreen(),
+                  ));
               },
             ),
             DrawerContentWidget(
