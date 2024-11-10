@@ -2,7 +2,7 @@
 import 'dart:io';
 
 import 'package:blizerpay/features/bottom_navigation/home/repository/home_repository.dart';
-import 'package:blizerpay/features/profile_screen.dart/repository/profile_repository.dart';
+import 'package:blizerpay/features/profile.dart/repository/profile_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ImagePostApi extends StateNotifier<ApiHandler> {

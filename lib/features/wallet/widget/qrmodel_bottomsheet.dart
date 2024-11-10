@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:blizerpay/features/wallet/screens/qr_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -27,8 +26,7 @@ class QRcodeBottomSheet extends StatelessWidget {
             size: 200.0,                   
             gapless: false,                
             backgroundColor: Colors.white,
-            // foregroundColor: Colors.black, 
-            errorCorrectionLevel: QrErrorCorrectLevel.H, //
+            errorCorrectionLevel: QrErrorCorrectLevel.H,
             ),
           ),
           const SizedBox(height: 20),

@@ -5,13 +5,13 @@ import 'package:blizerpay/constents/path_constents.dart';
 import 'package:blizerpay/features/bottom_navigation/home/repository/home_repository.dart';
 import 'package:blizerpay/features/bottom_navigation/home/screens/home_screen.dart';
 import 'package:blizerpay/features/bottom_navigation/home/widget/drawer_widget.dart';
-import 'package:blizerpay/features/profile_screen.dart/controllers/image_postnotifier.dart';
-import 'package:blizerpay/features/profile_screen.dart/controllers/profile_controller.dart';
-import 'package:blizerpay/features/profile_screen.dart/repository/profile_repository.dart';
-import 'package:blizerpay/features/profile_screen.dart/screens/profile_edit_screen.dart';
-import 'package:blizerpay/features/profile_screen.dart/widgets/circle_avathar_widget.dart';
-import 'package:blizerpay/features/profile_screen.dart/widgets/image_post_option_widget.dart';
-import 'package:blizerpay/features/profile_screen.dart/widgets/profile_detials_widget.dart';
+import 'package:blizerpay/features/profile.dart/controllers/image_postnotifier.dart';
+import 'package:blizerpay/features/profile.dart/controllers/profile_controller.dart';
+import 'package:blizerpay/features/profile.dart/repository/profile_repository.dart';
+import 'package:blizerpay/features/profile.dart/screens/profile_edit_screen.dart';
+import 'package:blizerpay/features/profile.dart/widgets/circle_avathar_widget.dart';
+import 'package:blizerpay/features/profile.dart/widgets/image_post_option_widget.dart';
+import 'package:blizerpay/features/profile.dart/widgets/profile_detials_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -54,7 +54,6 @@ class _ProfileScreenConsumerState extends ConsumerState<ProfileScreen> {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => const HomeScreen(),
               ));
-              // ref.read(profileController.notifier).getPersonalData();
             },
             child: const Icon(Icons.arrow_back)),
         title: const Text(
@@ -218,7 +217,7 @@ void showSignoutDialog(BuildContext context, WidgetRef ref) {
         ),
         content: Column(
           mainAxisSize: MainAxisSize
-              .min, // This ensures the dialog size is adjusted to content
+              .min, 
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
@@ -242,14 +241,13 @@ void showSignoutDialog(BuildContext context, WidgetRef ref) {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle Cancel action
                       Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffDDDDDD),
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(8), // Smooth button shape
+                            BorderRadius.circular(8), 
                       ),
                     ),
                     child: const DmSansFontText(
@@ -267,10 +265,9 @@ void showSignoutDialog(BuildContext context, WidgetRef ref) {
                     child: BlizerfiCustomButton(
                       size: 12,
                       fontWeight: FontWeight.w600,
+                      borderRadius: 8,
                       onPressed: () {
-                        // Handle Logout action
                         ref.read(authController.notifier).logOut(context);
-                        // Add your signout logic here
                       },
                       text: "Logout",
                     ),

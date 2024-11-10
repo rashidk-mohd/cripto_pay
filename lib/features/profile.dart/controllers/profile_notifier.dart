@@ -1,7 +1,7 @@
 
 import 'package:blizerpay/core/utils.dart';
 import 'package:blizerpay/features/bottom_navigation/home/screens/home_screen.dart';
-import 'package:blizerpay/features/profile_screen.dart/repository/profile_repository.dart';
+import 'package:blizerpay/features/profile.dart/repository/profile_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

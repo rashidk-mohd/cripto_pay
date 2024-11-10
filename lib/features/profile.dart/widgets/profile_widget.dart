@@ -1,6 +1,6 @@
 
 import 'package:blizerpay/constents/path_constents.dart';
-import 'package:blizerpay/features/profile_screen.dart/widgets/profile_detials_widget.dart';
+import 'package:blizerpay/features/profile.dart/widgets/profile_detials_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {

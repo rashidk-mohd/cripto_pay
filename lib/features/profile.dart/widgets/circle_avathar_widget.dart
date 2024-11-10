@@ -1,7 +1,7 @@
 
 import 'package:blizerpay/constents/path_constents.dart';
 import 'package:blizerpay/features/bottom_navigation/home/repository/home_repository.dart';
-import 'package:blizerpay/features/profile_screen.dart/widgets/image_post_option_widget.dart';
+import 'package:blizerpay/features/profile.dart/widgets/image_post_option_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';

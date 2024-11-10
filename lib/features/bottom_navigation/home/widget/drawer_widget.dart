@@ -4,7 +4,7 @@ import 'package:blizerpay/constents/path_constents.dart';
 import 'package:blizerpay/features/auth/controller/auth_controller.dart';
 import 'package:blizerpay/features/comming_soon.dart';
 import 'package:blizerpay/features/history/screens/history_screen.dart';
-import 'package:blizerpay/features/profile_screen.dart/screens/profile_screen.dart';
+import 'package:blizerpay/features/profile.dart/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -148,9 +148,7 @@ Widget _buildUserProfile(
   );
 }
 
-bool isNull(Map response) {
-  return response.containsKey("error");
-}
+
 
 class DrawerContentWidget extends StatelessWidget {
   const DrawerContentWidget({
